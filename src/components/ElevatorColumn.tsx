@@ -1,5 +1,6 @@
 type ElevatorColumnProps = {
     height: string;
+    elevatorPosition: number;
 };
 
 export default function ElevatorColumn(props: ElevatorColumnProps) {
@@ -8,7 +9,7 @@ export default function ElevatorColumn(props: ElevatorColumnProps) {
             className="relative w-32 border-2 border-black"
             style={{ height: props.height }}
         >
-            <Elevator floor={2} />
+            <Elevator floor={props.elevatorPosition} />
         </div>
     );
 }

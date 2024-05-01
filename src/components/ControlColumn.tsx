@@ -1,12 +1,10 @@
+import { Direction } from "../types";
+
 type ControlColumnProps = {
     height: string;
     floorNumber: number;
+    onElevatorOrder: (floor: number, direction: Direction) => void;
 };
-
-enum Direction {
-    Up = "UP",
-    Down = "DOWN",
-}
 
 export default function ControlColumn(props: ControlColumnProps) {
     const logOrder = (floor: number, direction: Direction) =>
@@ -14,7 +12,7 @@ export default function ControlColumn(props: ControlColumnProps) {
 
     const floors = Array.from(
         { length: props.floorNumber },
-        (_, index) => props.floorNumber - index,
+        (_, index) => props.floorNumber - index - 1,
     );
 
     return (
@@ -26,7 +24,7 @@ export default function ControlColumn(props: ControlColumnProps) {
                 <ControlPanel
                     key={floor}
                     floor={floor}
-                    handleElevatorOrder={logOrder}
+                    onElevatorOrder={props.onElevatorOrder}
                 />
             ))}
         </div>
@@ -35,23 +33,21 @@ export default function ControlColumn(props: ControlColumnProps) {
 
 type ControlPanelProps = {
     floor: number;
-    handleElevatorOrder: (floor: number, direction: Direction) => void;
+    onElevatorOrder: (floor: number, direction: Direction) => void;
 };
 
 function ControlPanel(props: ControlPanelProps) {
     return (
         <div className="h-32 flex flex-col justify-center">
             <button
-                onClick={() =>
-                    props.handleElevatorOrder(props.floor, Direction.Up)
-                }
+                onClick={() => props.onElevatorOrder(props.floor, Direction.Up)}
                 className="hover:text-red-500"
             >
                 up
             </button>
             <button
                 onClick={() =>
-                    props.handleElevatorOrder(props.floor, Direction.Down)
+                    props.onElevatorOrder(props.floor, Direction.Down)
                 }
                 className="hover:text-red-500"
             >
