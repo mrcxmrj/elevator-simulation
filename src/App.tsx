@@ -1,4 +1,4 @@
-import Building from "./Building";
+import Building from "./components/Building";
 
 export default function App() {
     return (
