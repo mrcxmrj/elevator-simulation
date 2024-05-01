@@ -1,8 +1,12 @@
+import Building from "./Building";
 
-function App() {
-  return (
-    <div className="m-auto text-red-500 text-center text-3xl"><h1>Hello elevators!</h1></div>
-  )
+export default function App() {
+    return (
+        <div className="h-dvh">
+            <h1 className="mx-auto my-4 text-red-500 text-center text-3xl">
+                Hello elevators!
+            </h1>
+            <Building />
+        </div>
+    );
 }
-
-export default App
