@@ -31,10 +31,10 @@ export default function Building() {
 
     const handleElevatorOrder = (floor: number, direction: Direction) => {
         console.log(floor, direction);
-        moveElevator(0, floor);
+        moveElevator("0", floor);
     };
 
-    const moveElevator = async (elevatorId: number, targetFloor: number) => {
+    const moveElevator = async (elevatorId: string, targetFloor: number) => {
         let currentFloor = elevatorStates[elevatorId].floor;
         console.log(currentFloor);
         const direction = currentFloor < targetFloor ? 1 : -1;
