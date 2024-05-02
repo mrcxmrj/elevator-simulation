@@ -12,7 +12,7 @@ export default function ElevatorColumn(props: ElevatorColumnProps) {
         props.onFloorPick(elevatorId, floor);
     return (
         <div
-            className="relative w-32 border-2 border-black"
+            className="relative w-32 border-2 border-black overflow-clip"
             style={{ height: props.height }}
         >
             <Elevator
