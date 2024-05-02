@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Direction, ElevatorStateMap, ElevatorState } from "../types";
+import { Direction, ElevatorStateMap } from "../types";
 import { sleep } from "../utils";
 
 type useElevatorDispatcherReturnValues = [
@@ -57,20 +57,21 @@ export default function useElevatorDispatcher(
     };
 
     // NOTE: Currently causes bugs
-    const findAlignedElevators = (
-        elevators: ElevatorStateMap,
-        direction: Direction,
-    ): ElevatorStateMap => {
-        const alignedElevators = Object.entries(elevators).filter(
-            ([_, elevatorState]: [string, ElevatorState]) =>
-                elevatorState.direction === direction ||
-                elevatorState.direction === Direction.Idle,
-        );
+    //
+    // const findAlignedElevators = (
+    //     elevators: ElevatorStateMap,
+    //     direction: Direction,
+    // ): ElevatorStateMap => {
+    //     const alignedElevators = Object.entries(elevators).filter(
+    //         ([_, elevatorState]: [string, ElevatorState]) =>
+    //             elevatorState.direction === direction ||
+    //             elevatorState.direction === Direction.Idle,
+    //     );
+    //
+    //     return Object.fromEntries(alignedElevators);
+    // };
 
-        return Object.fromEntries(alignedElevators);
-    };
-
-    const dispatchElevator = (floor: number, direction: Direction) => {
+    const dispatchElevator = (floor: number) => {
         // const potentialElevators =
         //     findAlignedElevators(elevatorStates, direction) || elevatorStates;
         const closestElevatorId = findClosestElevator(floor, elevatorStates);
