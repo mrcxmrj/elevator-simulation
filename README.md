@@ -1,30 +1,22 @@
-# React + TypeScript + Vite
+# Elevator Simulation
+This projects helps visualize elevator movement for a varied number of floors and elevators.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Algorithm
+This system uses a simple FCFS (first-come, first-serve) algorithm to assign the closest elevator to the floor from which it was called.
+This simplifies the implementation, but introduces coverage problems - there is a possibility of "starving" outlier floors if not enough elevators are available.
+In the future I plan to improve this by adding a request queue and dispatching elevators in a way that minimizes direction changes.
 
-Currently, two official plugins are available:
-
--   [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
--   [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
--   Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-    // other rules...
-    parserOptions: {
-        ecmaVersion: "latest",
-        sourceType: "module",
-        project: ["./tsconfig.json", "./tsconfig.node.json"],
-        tsconfigRootDir: __dirname,
-    },
-};
+## Setup
+To use this app locally, clone this repository and install required dependencies:
+```bash
+npm install
 ```
-
--   Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
--   Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
--   Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Then start a development server:
+```bash
+npm run dev
+```
+Or build and preview the production version:
+```bash
+npm run build
+npm run preview
+```
