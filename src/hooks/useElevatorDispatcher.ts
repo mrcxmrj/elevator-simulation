@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Direction, ElevatorStateMap } from "../types";
+import { Direction, ElevatorStateMap, ElevatorState } from "../types";
 import { sleep } from "../utils";
 
 type useElevatorDispatcherReturnValues = [
@@ -25,12 +25,13 @@ export default function useElevatorDispatcher(
         },
     );
 
-    const findClosestGoodElevator = (targetFloor: number) => {
-        let closestElevatorId: string = Object.keys(elevatorStates)[0];
+    const findClosestElevator = (
+        targetFloor: number,
+        elevators: ElevatorStateMap,
+    ) => {
+        let closestElevatorId: string = Object.keys(elevators)[0];
         let minDistance = Infinity;
-        for (const [elevatorId, elevatorState] of Object.entries(
-            elevatorStates,
-        )) {
+        for (const [elevatorId, elevatorState] of Object.entries(elevators)) {
             const distance = Math.abs(elevatorState.floor - targetFloor);
             if (distance < minDistance) {
                 minDistance = distance;
@@ -40,11 +41,29 @@ export default function useElevatorDispatcher(
         return closestElevatorId;
     };
 
+    const findAlignedElevators = (
+        elevators: ElevatorStateMap,
+        direction: Direction,
+    ): ElevatorStateMap => {
+        const alignedElevators = Object.entries(elevators).filter(
+            ([_, elevatorState]: [string, ElevatorState]) =>
+                elevatorState.direction === direction ||
+                elevatorState.direction === Direction.Idle,
+        );
+
+        return Object.fromEntries(alignedElevators);
+    };
+
     const dispatchElevator = (floor: number, direction: Direction) => {
         // const randomElevatorId: string = Math.floor(
         //     Math.random() * (elevatorNumber - 1),
         // ).toString();
-        const closestElevatorId = findClosestGoodElevator(floor);
+        const potentialElevators =
+            findAlignedElevators(elevatorStates, direction) || elevatorStates;
+        const closestElevatorId = findClosestElevator(
+            floor,
+            potentialElevators,
+        );
         moveElevator(closestElevatorId, floor);
     };
 
