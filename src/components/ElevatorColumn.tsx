@@ -65,7 +65,7 @@ function FloorPicker(props: FloorPickerProps) {
                 <button
                     key={floor}
                     onClick={() => props.onFloorPick(floor)}
-                    className="flex-1 px-6 text-center"
+                    className="flex-1 px-6 text-center hover:bg-red-500 hover:bg-opacity-70"
                 >
                     {floor}
                 </button>

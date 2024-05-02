@@ -1,4 +1,5 @@
 export enum Direction {
-    Up = "UP",
-    Down = "DOWN",
+    Up = 1,
+    Down = -1,
+    Idle = 0,
 }
