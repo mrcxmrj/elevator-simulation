@@ -16,25 +16,29 @@ export default function Building(props: BuildingProps) {
         `${floorNumber * 8}rem`;
 
     return (
-        <div className="mt-4 flex justify-evenly">
-            <ControlColumn
-                floorNumber={floorNumber}
-                height={calculateColumnHeight(floorNumber)}
-                onElevatorOrder={dispatchElevator}
-            />
-            {Object.entries(elevatorStates).map(
-                ([id, { floor, hasFloorPicker }]) => (
-                    <ElevatorColumn
-                        key={id}
-                        id={id}
-                        elevatorPosition={floor}
-                        height={calculateColumnHeight(floorNumber)}
-                        hasFloorPicker={hasFloorPicker}
-                        onFloorPick={moveElevator}
-                        floorNumber={floorNumber}
-                    />
-                ),
-            )}
+        <div className="flex mt-8">
+            <div className="ml-8">
+                <ControlColumn
+                    floorNumber={floorNumber}
+                    height={calculateColumnHeight(floorNumber)}
+                    onElevatorOrder={dispatchElevator}
+                />
+            </div>
+            <div className="w-full flex justify-evenly">
+                {Object.entries(elevatorStates).map(
+                    ([id, { floor, hasFloorPicker }]) => (
+                        <ElevatorColumn
+                            key={id}
+                            id={id}
+                            elevatorPosition={floor}
+                            height={calculateColumnHeight(floorNumber)}
+                            hasFloorPicker={hasFloorPicker}
+                            onFloorPick={moveElevator}
+                            floorNumber={floorNumber}
+                        />
+                    ),
+                )}
+            </div>
         </div>
     );
 }
