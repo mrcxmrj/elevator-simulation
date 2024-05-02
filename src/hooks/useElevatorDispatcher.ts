@@ -10,6 +10,7 @@ type useElevatorDispatcherReturnValues = [
 
 export default function useElevatorDispatcher(
     elevatorNumber: number,
+    floorNumber: number,
 ): useElevatorDispatcherReturnValues {
     const [elevatorStates, setElevatorStates] = useState<ElevatorStateMap>(
         () => {
@@ -17,7 +18,6 @@ export default function useElevatorDispatcher(
             for (let i = 0; i < elevatorNumber; i++) {
                 defaultStates[i] = {
                     floor: 0,
-                    hasFloorPicker: false,
                     direction: Direction.Idle,
                 };
             }
@@ -28,18 +28,18 @@ export default function useElevatorDispatcher(
     useEffect(() => {
         let updatedStates: ElevatorStateMap = {};
         for (let i = 0; i < elevatorNumber; i++) {
-            if (elevatorStates[i]) {
+            console.log(elevatorStates);
+            if (elevatorStates[i] && elevatorStates[i].floor < floorNumber) {
                 updatedStates[i] = elevatorStates[i];
                 continue;
             }
             updatedStates[i] = {
                 floor: 0,
-                hasFloorPicker: false,
                 direction: Direction.Idle,
             };
         }
         setElevatorStates(updatedStates);
-    }, [elevatorNumber]);
+    }, [elevatorNumber, floorNumber]);
 
     const findClosestElevator = (
         targetFloor: number,
@@ -71,9 +71,6 @@ export default function useElevatorDispatcher(
     };
 
     const dispatchElevator = (floor: number, direction: Direction) => {
-        // const randomElevatorId: string = Math.floor(
-        //     Math.random() * (elevatorNumber - 1),
-        // ).toString();
         // FIXME: floor is sometimes undefined
         const potentialElevators =
             findAlignedElevators(elevatorStates, direction) || elevatorStates;
@@ -95,7 +92,6 @@ export default function useElevatorDispatcher(
                 ...elevatorStates,
                 [elevatorId]: {
                     floor: currentFloor,
-                    hasFloorPicker: false,
                     direction: direction,
                 },
             } as ElevatorStateMap);
@@ -104,8 +100,7 @@ export default function useElevatorDispatcher(
             ...elevatorStates,
             [elevatorId]: {
                 floor: currentFloor,
-                hasFloorPicker: true,
-                direction,
+                direction: Direction.Idle,
             },
         } as ElevatorStateMap);
     };

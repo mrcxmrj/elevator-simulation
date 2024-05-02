@@ -6,7 +6,6 @@ export enum Direction {
 
 export type ElevatorState = {
     floor: number;
-    hasFloorPicker: boolean;
     direction: Direction;
 };
 

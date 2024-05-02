@@ -1,8 +1,9 @@
+import { Direction, ElevatorState } from "../types";
+
 type ElevatorColumnProps = {
     id: string;
     height: string;
-    elevatorPosition: number;
-    hasFloorPicker: boolean;
+    elevatorState: ElevatorState;
     floorNumber: number;
     onFloorPick: (elevatorId: string, floor: number) => Promise<void>;
 };
@@ -16,9 +17,8 @@ export default function ElevatorColumn(props: ElevatorColumnProps) {
             style={{ height: props.height }}
         >
             <Elevator
-                floor={props.elevatorPosition}
-                hasFloorPicker={props.hasFloorPicker}
                 floorNumber={props.floorNumber}
+                elevatorState={props.elevatorState}
                 onFloorPick={handleFloorPick(props.id)}
             />
         </div>
@@ -26,9 +26,8 @@ export default function ElevatorColumn(props: ElevatorColumnProps) {
 }
 
 type ElevatorProps = {
-    floor: number;
-    hasFloorPicker: boolean;
     floorNumber: number;
+    elevatorState: ElevatorState;
     onFloorPick: (floor: number) => Promise<void>;
 };
 
@@ -37,9 +36,11 @@ function Elevator(props: ElevatorProps) {
     return (
         <div
             className="absolute w-full h-32 border-y-2 border-black"
-            style={{ bottom: calculateFloorPosition(props.floor) }}
+            style={{
+                bottom: calculateFloorPosition(props.elevatorState.floor),
+            }}
         >
-            {props.hasFloorPicker && (
+            {props.elevatorState.direction === Direction.Idle && (
                 <FloorPicker
                     floorNumber={props.floorNumber}
                     onFloorPick={props.onFloorPick}

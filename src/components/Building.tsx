@@ -1,6 +1,7 @@
 import ElevatorColumn from "./ElevatorColumn";
 import ControlColumn from "./ControlColumn";
 import useElevatorDispatcher from "../hooks/useElevatorDispatcher";
+import { ElevatorState } from "../types";
 
 type BuildingProps = {
     floorNumber: number;
@@ -10,7 +11,7 @@ type BuildingProps = {
 export default function Building(props: BuildingProps) {
     const { elevatorNumber, floorNumber } = props;
     const [elevatorStates, dispatchElevator, moveElevator] =
-        useElevatorDispatcher(elevatorNumber);
+        useElevatorDispatcher(elevatorNumber, floorNumber);
 
     const calculateColumnHeight = (floorNumber: number) =>
         `${floorNumber * 8}rem`;
@@ -26,13 +27,12 @@ export default function Building(props: BuildingProps) {
             </div>
             <div className="w-full flex justify-evenly">
                 {Object.entries(elevatorStates).map(
-                    ([id, { floor, hasFloorPicker }]) => (
+                    ([id, elevatorState]: [string, ElevatorState]) => (
                         <ElevatorColumn
                             key={id}
                             id={id}
-                            elevatorPosition={floor}
+                            elevatorState={elevatorState}
                             height={calculateColumnHeight(floorNumber)}
-                            hasFloorPicker={hasFloorPicker}
                             onFloorPick={moveElevator}
                             floorNumber={floorNumber}
                         />
