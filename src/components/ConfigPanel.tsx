@@ -45,13 +45,10 @@ function NumberPicker(props: NumberPickerProps) {
 
     return (
         <div className="">
-            {
-                // <div className="w-full text-center">{props.label}</div>
-            }
             <div className="flex items-center">
                 <button
                     onClick={decrement}
-                    className="px-3 py-1 border-2 border-black rounded-l hover:bg-red-500"
+                    className="px-3 py-1 border-2 border-black rounded-l hover:bg-red-500 hover:bg-opacity-75"
                 >
                     -
                 </button>
@@ -60,7 +57,7 @@ function NumberPicker(props: NumberPickerProps) {
                 </p>
                 <button
                     onClick={increment}
-                    className="px-3 py-1 border-2 border-black rounded-r hover:bg-red-500"
+                    className="px-3 py-1 border-2 border-black rounded-r hover:bg-red-500 hover:bg-opacity-75"
                 >
                     +
                 </button>

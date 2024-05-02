@@ -60,15 +60,23 @@ function FloorPicker(props: FloorPickerProps) {
         { length: props.floorNumber },
         (_, index) => index,
     );
+    const formatText = (floorNumber: number) => {
+        if (floorNumber === 16) return "text-xs";
+        if (floorNumber >= 13) return "text-sm";
+    };
     return (
-        <div className="h-full flex justify-center items-center flex-wrap overflow-x-hidden">
+        <div className="h-full flex justify-center items-center flex-wrap overflow-x-hidden p-1">
             {floorNumbers.map((floor) => (
                 <button
                     key={floor}
                     onClick={() => props.onFloorPick(floor)}
-                    className={`flex-1 ${props.floorNumber <= 10 ? "px-6" : "px-3"} text-center hover:bg-red-500 hover:bg-opacity-70`}
+                    className={`flex-1 flex justify-center ${props.floorNumber <= 8 ? "px-4" : "px-1"} text-center `}
                 >
-                    {floor}
+                    <p
+                        className={`border border-black rounded-full w-6 ${formatText(props.floorNumber)} hover:bg-red-500 hover:bg-opacity-75`}
+                    >
+                        {floor}
+                    </p>
                 </button>
             ))}
         </div>
