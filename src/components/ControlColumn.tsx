@@ -3,7 +3,7 @@ import { Direction } from "../types";
 type ControlColumnProps = {
     height: string;
     floorNumber: number;
-    onElevatorOrder: (floor: number, direction: Direction) => void;
+    onElevatorOrder: (floor: number, direction: Direction) => Promise<void>;
 };
 
 export default function ControlColumn(props: ControlColumnProps) {
@@ -27,7 +27,7 @@ export default function ControlColumn(props: ControlColumnProps) {
 
 type ControlPanelProps = {
     floor: number;
-    onElevatorOrder: (floor: number, direction: Direction) => void;
+    onElevatorOrder: (floor: number, direction: Direction) => Promise<void>;
 };
 
 const UP_ARROW = "\u2191";

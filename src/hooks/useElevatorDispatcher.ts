@@ -4,7 +4,7 @@ import { sleep } from "../utils";
 
 type useElevatorDispatcherReturnValues = [
     ElevatorStateMap,
-    (floor: number, direction: Direction) => void,
+    (floor: number, direction: Direction) => Promise<void>,
     (elevatorId: string, targetFloor: number) => Promise<void>,
 ];
 
@@ -71,11 +71,11 @@ export default function useElevatorDispatcher(
     //     return Object.fromEntries(alignedElevators);
     // };
 
-    const dispatchElevator = (floor: number) => {
+    const dispatchElevator = async (floor: number) => {
         // const potentialElevators =
         //     findAlignedElevators(elevatorStates, direction) || elevatorStates;
         const closestElevatorId = findClosestElevator(floor, elevatorStates);
-        moveElevator(closestElevatorId, floor);
+        await moveElevator(closestElevatorId, floor);
     };
 
     const moveElevator = async (elevatorId: string, targetFloor: number) => {

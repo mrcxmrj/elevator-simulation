@@ -9,8 +9,8 @@ type ElevatorColumnProps = {
 };
 
 export default function ElevatorColumn(props: ElevatorColumnProps) {
-    const handleFloorPick = (elevatorId: string) => (floor: number) =>
-        props.onFloorPick(elevatorId, floor);
+    const handleFloorPick = (elevatorId: string) => async (floor: number) =>
+        await props.onFloorPick(elevatorId, floor);
     return (
         <div
             className="relative w-32 border-2 border-black overflow-clip"
