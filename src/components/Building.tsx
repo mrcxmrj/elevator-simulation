@@ -1,11 +1,14 @@
-import { useState } from "react";
 import ElevatorColumn from "./ElevatorColumn";
 import ControlColumn from "./ControlColumn";
 import useElevatorDispatcher from "../hooks/useElevatorDispatcher";
 
-export default function Building() {
-    const [floorNumber] = useState(5);
-    const [elevatorNumber] = useState(5);
+type BuildingProps = {
+    floorNumber: number;
+    elevatorNumber: number;
+};
+
+export default function Building(props: BuildingProps) {
+    const { elevatorNumber, floorNumber } = props;
     const [elevatorStates, dispatchElevator, moveElevator] =
         useElevatorDispatcher(elevatorNumber);
 
@@ -13,7 +16,7 @@ export default function Building() {
         `${floorNumber * 8}rem`;
 
     return (
-        <div className="flex justify-evenly">
+        <div className="mt-4 flex justify-evenly">
             <ControlColumn
                 floorNumber={floorNumber}
                 height={calculateColumnHeight(floorNumber)}

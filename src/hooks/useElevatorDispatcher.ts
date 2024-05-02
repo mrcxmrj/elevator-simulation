@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Direction, ElevatorStateMap, ElevatorState } from "../types";
 import { sleep } from "../utils";
 
@@ -24,6 +24,22 @@ export default function useElevatorDispatcher(
             return defaultStates;
         },
     );
+
+    useEffect(() => {
+        let updatedStates: ElevatorStateMap = {};
+        for (let i = 0; i < elevatorNumber; i++) {
+            if (elevatorStates[i]) {
+                updatedStates[i] = elevatorStates[i];
+                continue;
+            }
+            updatedStates[i] = {
+                floor: 0,
+                hasFloorPicker: false,
+                direction: Direction.Idle,
+            };
+        }
+        setElevatorStates(updatedStates);
+    }, [elevatorNumber]);
 
     const findClosestElevator = (
         targetFloor: number,
@@ -58,6 +74,7 @@ export default function useElevatorDispatcher(
         // const randomElevatorId: string = Math.floor(
         //     Math.random() * (elevatorNumber - 1),
         // ).toString();
+        // FIXME: floor is sometimes undefined
         const potentialElevators =
             findAlignedElevators(elevatorStates, direction) || elevatorStates;
         const closestElevatorId = findClosestElevator(

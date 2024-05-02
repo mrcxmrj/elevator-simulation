@@ -36,6 +36,7 @@ function Elevator(props: ElevatorProps) {
     const calculateFloorPosition = (floor: number) => `${8 * floor}rem`;
     return (
         <div
+            // FIXME: displays incorrectly for >= 10 floors and 16 elevators
             className="absolute w-full h-32 border-y-2 border-black"
             style={{ bottom: calculateFloorPosition(props.floor) }}
         >
