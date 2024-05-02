@@ -84,7 +84,7 @@ export default function useElevatorDispatcher(
             currentFloor < targetFloor ? Direction.Up : Direction.Down;
         while (currentFloor !== targetFloor) {
             currentFloor += direction;
-            await sleep(500);
+            await sleep(200);
             setElevatorStates({
                 ...elevatorStates,
                 [elevatorId]: {
