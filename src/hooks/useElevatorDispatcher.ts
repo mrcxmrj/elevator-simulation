@@ -56,24 +56,7 @@ export default function useElevatorDispatcher(
         return closestElevatorId;
     };
 
-    // NOTE: Currently causes bugs
-    //
-    // const findAlignedElevators = (
-    //     elevators: ElevatorStateMap,
-    //     direction: Direction,
-    // ): ElevatorStateMap => {
-    //     const alignedElevators = Object.entries(elevators).filter(
-    //         ([_, elevatorState]: [string, ElevatorState]) =>
-    //             elevatorState.direction === direction ||
-    //             elevatorState.direction === Direction.Idle,
-    //     );
-    //
-    //     return Object.fromEntries(alignedElevators);
-    // };
-
     const dispatchElevator = async (floor: number) => {
-        // const potentialElevators =
-        //     findAlignedElevators(elevatorStates, direction) || elevatorStates;
         const closestElevatorId = findClosestElevator(floor, elevatorStates);
         await moveElevator(closestElevatorId, floor);
     };
