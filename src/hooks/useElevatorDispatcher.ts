@@ -28,7 +28,6 @@ export default function useElevatorDispatcher(
     useEffect(() => {
         let updatedStates: ElevatorStateMap = {};
         for (let i = 0; i < elevatorNumber; i++) {
-            console.log(elevatorStates);
             if (elevatorStates[i] && elevatorStates[i].floor < floorNumber) {
                 updatedStates[i] = elevatorStates[i];
                 continue;

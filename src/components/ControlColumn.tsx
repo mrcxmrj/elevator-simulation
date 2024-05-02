@@ -37,12 +37,12 @@ function ControlPanel(props: ControlPanelProps) {
     return (
         <div className="h-32 flex justify-center items-center">
             <h1 className="mr-8 text-4xl">{props.floor}</h1>
-            <div className="w-fit h-fit p-4 rounded-full flex flex-col justify-center border-2 border-black text-xl">
+            <div className="w-fit h-fit  rounded-full flex flex-col justify-center border-2 border-black text-xl overflow-clip">
                 <button
                     onClick={() =>
                         props.onElevatorOrder(props.floor, Direction.Up)
                     }
-                    className="h-full hover:text-red-500"
+                    className="h-full p-2 border-b-2 border-black hover:bg-red-500 hover:bg-opacity-75"
                 >
                     {UP_ARROW}
                 </button>
@@ -50,7 +50,7 @@ function ControlPanel(props: ControlPanelProps) {
                     onClick={() =>
                         props.onElevatorOrder(props.floor, Direction.Down)
                     }
-                    className="h-full hover:text-red-500"
+                    className="h-full p-2 hover:bg-red-500 hover:bg-opacity-75"
                 >
                     {DOWN_ARROW}
                 </button>
