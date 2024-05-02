@@ -16,7 +16,7 @@ export default function Building(props: BuildingProps) {
         `${floorNumber * 8}rem`;
 
     return (
-        <div className="flex mt-8">
+        <div className="flex pb-8">
             <div className="ml-8">
                 <ControlColumn
                     floorNumber={floorNumber}

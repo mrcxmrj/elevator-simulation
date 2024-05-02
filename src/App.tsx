@@ -12,20 +12,15 @@ export default function App() {
         setElevatorNumber(newElevatorNumber);
     return (
         <div className="h-dvh">
-            {
-                // <h1 className="mx-auto my-4 text-red-500 text-center text-3xl">
-                //     Hello elevators!
-                // </h1>
-            }
-            <Building
-                floorNumber={floorNumber}
-                elevatorNumber={elevatorNumber}
-            />
             <ConfigPanel
                 floorNumber={floorNumber}
                 elevatorNumber={elevatorNumber}
                 onFloorNumberChange={handleFloorNumberChange}
                 onElevatorNumberChange={handleElevatorNumberChange}
+            />
+            <Building
+                floorNumber={floorNumber}
+                elevatorNumber={elevatorNumber}
             />
         </div>
     );
