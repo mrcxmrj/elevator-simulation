@@ -8,9 +8,11 @@ type ElevatorState = {
     floor: number;
     hasFloorPicker: boolean;
 };
+
 type ElevatorStateMap = {
     [id: string]: ElevatorState;
 };
+
 export default function Building() {
     const [floorNumber] = useState(5);
     const [elevatorNumber] = useState(5);
@@ -24,19 +26,20 @@ export default function Building() {
             return defaultStates;
         },
     );
-    console.log(elevatorStates);
 
     const calculateColumnHeight = (floorNumber: number) =>
         `${floorNumber * 8}rem`;
 
     const handleElevatorOrder = (floor: number, direction: Direction) => {
         console.log(floor, direction);
-        moveElevator("0", floor);
+        const randomElevatorId: string = Math.floor(
+            Math.random() * (elevatorNumber - 1),
+        ).toString();
+        moveElevator(randomElevatorId, floor);
     };
 
     const moveElevator = async (elevatorId: string, targetFloor: number) => {
         let currentFloor = elevatorStates[elevatorId].floor;
-        console.log(currentFloor);
         const direction = currentFloor < targetFloor ? 1 : -1;
         while (currentFloor !== targetFloor) {
             currentFloor += direction;
