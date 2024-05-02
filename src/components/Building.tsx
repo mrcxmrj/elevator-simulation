@@ -31,7 +31,6 @@ export default function Building() {
         `${floorNumber * 8}rem`;
 
     const handleElevatorOrder = (floor: number, direction: Direction) => {
-        console.log(floor, direction);
         const randomElevatorId: string = Math.floor(
             Math.random() * (elevatorNumber - 1),
         ).toString();

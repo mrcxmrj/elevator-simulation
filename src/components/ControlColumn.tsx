@@ -7,9 +7,6 @@ type ControlColumnProps = {
 };
 
 export default function ControlColumn(props: ControlColumnProps) {
-    const logOrder = (floor: number, direction: Direction) =>
-        console.log(floor, direction);
-
     const floors = Array.from(
         { length: props.floorNumber },
         (_, index) => props.floorNumber - index - 1,
