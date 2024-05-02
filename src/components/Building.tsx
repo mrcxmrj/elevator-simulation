@@ -4,21 +4,27 @@ import ControlColumn from "./ControlColumn";
 import { Direction } from "../types";
 import { sleep } from "../utils";
 
-type ElevatorPositionsMap = {
-    [id: number]: number;
+type ElevatorState = {
+    floor: number;
+    hasFloorPicker: boolean;
+};
+type ElevatorStateMap = {
+    [id: string]: ElevatorState;
 };
 export default function Building() {
     const [floorNumber] = useState(5);
     const [elevatorNumber] = useState(5);
 
-    const [elevatorPositions, setElevatorPositions] =
-        useState<ElevatorPositionsMap>(() => {
-            let defaultPositions: ElevatorPositionsMap = {};
+    const [elevatorStates, setElevatorStates] = useState<ElevatorStateMap>(
+        () => {
+            let defaultStates: ElevatorStateMap = {};
             for (let i = 0; i < elevatorNumber; i++) {
-                defaultPositions[i] = 0;
+                defaultStates[i] = { floor: 0, hasFloorPicker: false };
             }
-            return defaultPositions;
-        });
+            return defaultStates;
+        },
+    );
+    console.log(elevatorStates);
 
     const calculateColumnHeight = (floorNumber: number) =>
         `${floorNumber * 8}rem`;
@@ -29,16 +35,21 @@ export default function Building() {
     };
 
     const moveElevator = async (elevatorId: number, targetFloor: number) => {
-        let currentFloor = elevatorPositions[elevatorId];
+        let currentFloor = elevatorStates[elevatorId].floor;
+        console.log(currentFloor);
         const direction = currentFloor < targetFloor ? 1 : -1;
         while (currentFloor !== targetFloor) {
             currentFloor += direction;
             await sleep(500);
-            setElevatorPositions({
-                ...elevatorPositions,
-                [elevatorId]: currentFloor,
-            } as ElevatorPositionsMap);
+            setElevatorStates({
+                ...elevatorStates,
+                [elevatorId]: { floor: currentFloor, hasFloorPicker: false },
+            } as ElevatorStateMap);
         }
+        setElevatorStates({
+            ...elevatorStates,
+            [elevatorId]: { floor: currentFloor, hasFloorPicker: true },
+        } as ElevatorStateMap);
     };
 
     return (
@@ -48,13 +59,19 @@ export default function Building() {
                 height={calculateColumnHeight(floorNumber)}
                 onElevatorOrder={handleElevatorOrder}
             />
-            {Object.entries(elevatorPositions).map(([id, position]) => (
-                <ElevatorColumn
-                    key={id}
-                    elevatorPosition={position}
-                    height={calculateColumnHeight(floorNumber)}
-                />
-            ))}
+            {Object.entries(elevatorStates).map(
+                ([id, { floor, hasFloorPicker }]) => (
+                    <ElevatorColumn
+                        key={id}
+                        id={id}
+                        elevatorPosition={floor}
+                        height={calculateColumnHeight(floorNumber)}
+                        hasFloorPicker={hasFloorPicker}
+                        onFloorPick={moveElevator}
+                        floorNumber={floorNumber}
+                    />
+                ),
+            )}
         </div>
     );
 }
