@@ -32,7 +32,7 @@ type ElevatorProps = {
 };
 
 function Elevator(props: ElevatorProps) {
-    const calculateFloorPosition = (floor: number) => `${8 * floor}rem`;
+    const calculateFloorPosition = (floor: number) => `${128 * floor - 2}px`; // -2 to account for border
     return (
         <div
             className="absolute w-full h-32 border-y-2 border-black"
