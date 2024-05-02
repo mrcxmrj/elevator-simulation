@@ -7,7 +7,7 @@ This simplifies the implementation, but introduces coverage problems - there is 
 In the future I plan to improve this by adding a request queue and dispatching elevators in a way that minimizes direction changes.
 
 ## Usage
-- top panel allows you to adjust simulation parameters
+- use the top panel to adjust simulation parameters - number of floors and elevators (accepted values are 0-16)
 - use the buttons on the left to call an elevator to a specific floor
 - use the buttons inside elevators to pick the floor you want to move to
 
