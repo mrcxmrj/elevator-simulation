@@ -1,5 +1,5 @@
 # Elevator Simulation
-This projects helps visualize elevator movement for a varied number of floors and elevators.
+This project helps visualize elevator movement for a varied number of floors and elevators.
 
 ## Algorithm
 This system uses a simple FCFS (first-come, first-serve) algorithm to assign the closest elevator to the floor from which it was called.
